@@ -4,11 +4,10 @@ rightWrist_x = 0;
 rightWrist_y = 0;
 leftWrist_x = 0;
 leftWrist_y = 0
-song_name = "";
 score_left_wrist = 0;
 score_right_Wrist = 0;
-song_Peter_pan = "";
-song_Harry_potter_theme = "";
+song1_status = "";
+song2_status = "";
 
 function setup(){
     canvas = createCanvas(600,531);
@@ -33,34 +32,24 @@ function draw(){
     fill("#00ff00");
     stroke("#ff0000")
 
-    song_Peter_pan = peter_pan_song.isPlaying();
-    console.log(peter_pan_song);
+    song1_status = peter_pan_song.isPlaying();
+    console.log(song1_status);
 
-    song_Harry_potter_theme = harry_potter_song.isPlaying();
-    console.log(harry_potter_song);
+    song1_status = harry_potter_song.isPlaying();
+    console.log(song2_status);
 
-    song_name = peter_pan_song.isPlaying()
-    console.log(song_name);
-     if(score_left_wrist < 0.2){
+     if(score_left_wrist > 0.2){
          circle(leftWrist_x, leftWrist_y, 20);
-         harry_potter_song.stop();
-         if(song_name == false){
-             peter_pan_song.play();
-         }
-         else{
-            console.log("Song Name: Peter Pan Song");
-            document.getElementById("song_id").innerHTML = "Song Name: Peter Pan Song";
+         peter_pan_song.stop();
+         if(song2_status == false){
+             harry_potter_song.play();
          }
 
          if(score_right_Wrist > 0.2){
             circle(rightWrist_x,rightWrist_y,20);
-            peter_pan_song.stop();
-            if(harry_potter_song == false){
-                harry_potter_song.play();
-            }
-            else{
-                console.log("Song Name: Harry Potter Theme Song");
-                document.getElementById("song_id").innerHTML = "Song Name: Harry Potter Theme Song";
+            harry_potter_song.stop();
+            if(song1_status == false){
+                peter_pan_song.play();
             }
         }   
      }
@@ -72,7 +61,9 @@ function modelLoaded(){
 }
 
 function gotPoses(results){
+
     if(results.length > 0){
+
         console.log(results);
 
         score_left_Wrist = results[0].pose.keypoints[9].score;
